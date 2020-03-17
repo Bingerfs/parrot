@@ -15,35 +15,22 @@ public class Parrot {
     }
 
     public double getSpeed() {
+        IParrotVelocityCalculator iParrotVelocityCalculator;
         switch(type) {
             case EUROPEAN:
-                EuropeanVelocityCalculator europeanVelocityCalculator = new EuropeanVelocityCalculator();
-                return europeanVelocityCalculator.getBaseSpeed();
+                iParrotVelocityCalculator = new EuropeanVelocityCalculator();
+                return iParrotVelocityCalculator.getSpeed();
             case AFRICAN:
-                AfricanVelocityCalculator africanVelocityCalculator = new AfricanVelocityCalculator(this.numberOfCoconuts);
-                return africanVelocityCalculator.getSpeedAfrican();
+                iParrotVelocityCalculator = new AfricanVelocityCalculator(this.numberOfCoconuts);
+                return iParrotVelocityCalculator.getSpeed();
             case NORWEGIAN_BLUE:
-                NorwegianVelocityCalculator norwegianVelocityCalculator = new NorwegianVelocityCalculator();
-                return (isNailed) ? 0 : getBaseSpeed(voltage);
+                iParrotVelocityCalculator = new NorwegianVelocityCalculator(isNailed, voltage);
+                return iParrotVelocityCalculator.getSpeed();
         }
         throw new RuntimeException("Should be unreachable");
     }
 
-    private double getSpeedAfrican() {
-        return Math.max(0, getBaseSpeed() - getLoadFactor() * numberOfCoconuts);
-    }
 
-    private double getBaseSpeed(double voltage) {
-        return Math.min(24.0, voltage*getBaseSpeed());
-    }
-
-    private double getLoadFactor() {
-        return 9.0;
-    }
-
-    private double getBaseSpeed() {
-        return 12.0;
-    }
 
 
 }

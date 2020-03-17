@@ -1,4 +1,4 @@
-public class AfricanVelocityCalculator {
+public class AfricanVelocityCalculator implements IParrotVelocityCalculator{
 
     private int numberOfCoconuts=0;
 
@@ -6,19 +6,8 @@ public class AfricanVelocityCalculator {
         this.numberOfCoconuts = numberOfCoconuts;
     }
 
-    public double getSpeedAfrican() {
+    public double getSpeed() {
         return Math.max(0, getBaseSpeed() - getLoadFactor() * numberOfCoconuts);
     }
 
-    private double getBaseSpeed(double voltage) {
-        return Math.min(24.0, voltage*getBaseSpeed());
-    }
-
-    private double getLoadFactor() {
-        return 9.0;
-    }
-
-    private double getBaseSpeed() {
-        return 12.0;
-    }
 }
