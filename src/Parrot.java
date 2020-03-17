@@ -17,13 +17,20 @@ public class Parrot {
     public double getSpeed() {
         switch(type) {
             case EUROPEAN:
-                return getBaseSpeed();
+                EuropeanVelocityCalculator europeanVelocityCalculator = new EuropeanVelocityCalculator();
+                return europeanVelocityCalculator.getBaseSpeed();
             case AFRICAN:
-                return Math.max(0, getBaseSpeed() - getLoadFactor() * numberOfCoconuts);
+                AfricanVelocityCalculator africanVelocityCalculator = new AfricanVelocityCalculator(this.numberOfCoconuts);
+                return africanVelocityCalculator.getSpeedAfrican();
             case NORWEGIAN_BLUE:
+                NorwegianVelocityCalculator norwegianVelocityCalculator = new NorwegianVelocityCalculator();
                 return (isNailed) ? 0 : getBaseSpeed(voltage);
         }
         throw new RuntimeException("Should be unreachable");
+    }
+
+    private double getSpeedAfrican() {
+        return Math.max(0, getBaseSpeed() - getLoadFactor() * numberOfCoconuts);
     }
 
     private double getBaseSpeed(double voltage) {
